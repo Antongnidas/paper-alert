@@ -1,0 +1,104 @@
+# =========================================================
+# Paper Monitor 配置文件
+# =========================================================
+
+# 1. 时间窗口：抓取“最近多少天”内发布的论文
+lookback_days: 14
+
+# 2. 关键词规则
+keywords:
+  # include: 至少命中其中一个才保留
+  include:
+    - healthcare
+    - hospital
+    - medical
+    - insurance
+    - climate
+    - mutual fund
+
+  # exclude: 只要命中其中一个就排除
+  exclude:
+    - editorial
+    - announcement
+    - announcements
+    - report
+    - corrigendum
+    - erratum
+
+# 3. source 选择规则
+selection:
+  # 3.1 按期刊名精确选择
+  # 写 sources.yaml 里的 name
+  # 留空表示“不按名字限制”
+  source_names: []
+
+  # 3.2 按 category 选
+  # 可选示例：finance, om, accounting, economics, management, marketing, is, innovation
+  # 留空表示“不按 category 限制”
+  categories: []
+
+  # 3.3 按 group 选
+  # 可选示例：top_finance, top_om, top_accounting, top_management, om_extended, econ_core
+  # 留空表示“不按 group 限制”
+  groups:
+    - top_finance
+    - top_om
+
+  # 3.4 按 tags 选
+  # 只要 source 的 tags 中包含任意一个，就会被选中
+  # 留空表示“不按 tags 限制”
+  tags: []
+
+  # 3.5 多个条件如何组合
+  # 可选：
+  # - any: 满足 source_names / categories / groups / tags 中任意一个即可
+  # - all: 如果你填了多个维度，则必须同时满足
+  mode: any
+
+# 4. 输出设置
+output:
+  save_csv: true
+  save_json: true
+  save_markdown: true
+
+  output_dir: outputs
+
+  # 是否在终端打印命中的论文
+  print_results: true
+
+# 5. 匹配设置
+matching:
+  # keyword_scope:
+  # - title_only: 只匹配标题
+  # - title_and_abstract: 标题 + 摘要一起匹配
+  keyword_scope: title_only
+
+  # keyword_match_type:
+  # - substring: 子串匹配（容易误匹配）
+  # - whole_word: 整词匹配（推荐）
+  keyword_match_type: whole_word
+
+  # 是否忽略大小写
+  case_sensitive: false
+
+# 6. 去重设置
+dedup:
+  enabled: true
+
+  # 按什么优先去重
+  # 推荐顺序：doi > title > link
+  priority:
+    - doi
+    - title
+    - link
+
+# 7. 调试设置
+debug:
+  # 是否打印每个 source 的抓取数量
+  print_source_counts: true
+
+  # 是否打印解析失败信息
+  print_parse_errors: true
+
+  # 最多打印多少条命中结果到终端
+  max_print_results: 50

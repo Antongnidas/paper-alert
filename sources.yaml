@@ -1,0 +1,140 @@
+sources:
+  - name: "Journal of Finance"
+    short_name: "JF"
+    type: "rss"
+    enabled: true
+    url: "https://onlinelibrary.wiley.com/feed/15406261/most-recent"
+    parser: "rss"
+    category: "finance"
+    group: "top_finance"
+    tags: ["finance", "asset_pricing", "corporate_finance"]
+
+  - name: "Journal of Financial Economics"
+    short_name: "JFE"
+    type: "rss"
+    enabled: true
+    url: "https://rss.sciencedirect.com/publication/science/0304405X"
+    parser: "rss"
+    category: "finance"
+    group: "top_finance"
+    tags: ["finance", "asset_pricing", "corporate_finance"]
+
+  - name: "Management Science"
+    short_name: "MNSC"
+    type: "rss"
+    enabled: true
+    url: "https://pubsonline.informs.org/action/showFeed?type=etoc&feed=rss&jc=mnsc"
+    parser: "rss"
+    category: "om"
+    group: "top_om"
+    tags: ["om", "finance_related", "healthcare", "strategy"]
+
+  - name: "Operations Research"
+    short_name: "OR"
+    type: "rss"
+    enabled: true
+    url: "https://pubsonline.informs.org/action/showFeed?type=etoc&feed=rss&jc=opre"
+    parser: "rss"
+    category: "om"
+    group: "top_om"
+    tags: ["om", "optimization", "analytics"]
+
+  - name: "Manufacturing and Service Operations Management"
+    short_name: "MSOM"
+    type: "rss"
+    enabled: true
+    url: "https://pubsonline.informs.org/action/showFeed?type=etoc&feed=rss&jc=msom"
+    parser: "rss"
+    category: "om"
+    group: "top_om"
+    tags: ["om", "operations", "healthcare"]
+
+  - name: "Information Systems Research"
+    short_name: "ISR"
+    type: "rss"
+    enabled: true
+    url: "https://pubsonline.informs.org/action/showFeed?type=etoc&feed=rss&jc=isre"
+    parser: "rss"
+    category: "is"
+    group: "top_is"
+    tags: ["is", "platform", "digital", "ai"]
+
+  - name: "Marketing Science"
+    short_name: "MKSC"
+    type: "rss"
+    enabled: true
+    url: "https://pubsonline.informs.org/action/showFeed?type=etoc&feed=rss&jc=mksc"
+    parser: "rss"
+    category: "marketing"
+    group: "top_marketing"
+    tags: ["marketing", "consumer", "platform"]
+
+  - name: "Organization Science"
+    short_name: "ORSC"
+    type: "rss"
+    enabled: true
+    url: "https://pubsonline.informs.org/action/showFeed?type=etoc&feed=rss&jc=orsc"
+    parser: "rss"
+    category: "management"
+    group: "top_management"
+    tags: ["management", "organization", "strategy"]
+
+  - name: "Production and Operations Management"
+    short_name: "POM"
+    type: "rss"
+    enabled: true
+    url: "https://onlinelibrary.wiley.com/feed/19375956/most-recent"
+    parser: "rss"
+    category: "om"
+    group: "om_extended"
+    tags: ["om", "operations", "supply_chain"]
+
+  - name: "Research Policy"
+    short_name: "RP"
+    type: "rss"
+    enabled: true
+    url: "https://rss.sciencedirect.com/publication/science/00487333"
+    parser: "rss"
+    category: "innovation"
+    group: "innovation"
+    tags: ["innovation", "technology", "policy"]
+
+  - name: "Journal of Operations Management"
+    short_name: "JOM"
+    type: "rss"
+    enabled: true
+    url: "https://onlinelibrary.wiley.com/feed/18731317/most-recent"
+    parser: "rss"
+    category: "om"
+    group: "om_extended"
+    tags: ["om", "operations", "supply_chain"]
+
+  - name: "Journal of Accounting and Economics"
+    short_name: "JAE"
+    type: "rss"
+    enabled: true
+    url: "https://rss.sciencedirect.com/publication/science/01654101"
+    parser: "rss"
+    category: "accounting"
+    group: "top_accounting"
+    tags: ["accounting", "finance_related"]
+
+  - name: "Journal of Accounting Research"
+    short_name: "JAR"
+    type: "rss"
+    enabled: true
+    url: "https://onlinelibrary.wiley.com/feed/1475679x/most-recent"
+    parser: "rss"
+    category: "accounting"
+    group: "top_accounting"
+    tags: ["accounting", "finance_related"]
+
+  - name: "Econometrica"
+    short_name: "ECTA"
+    type: "rss"
+    enabled: true
+    url: "https://onlinelibrary.wiley.com/feed/14680262/most-recent"
+    parser: "rss"
+    category: "economics"
+    group: "econ_core"
+    tags: ["economics", "theory", "metrics"]
