@@ -11,16 +11,22 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
 CONFERENCE_SITES = {
-    "wfa": [
-        "https://westernfinance.org",
-        "https://www.westernfinance.org/annual-meeting",
-        "https://www.westernfinance.org/meetings",
-    ],
-    "afa": [
-        "https://www.afajof.org",
-        "https://www.afajof.org/annual-meeting",
-        "https://www.afajof.org/meetings",
-    ],
+    "wfa": {
+        "urls": [
+            "https://westernfinance.org",
+            "https://www.westernfinance.org/annual-meeting",
+            "https://www.westernfinance.org/meetings",
+        ],
+        "allowed_domains": ["westernfinance.org"],
+    },
+    "afa": {
+        "urls": [
+            "https://www.afajof.org",
+            "https://www.afajof.org/annual-meeting",
+            "https://www.afajof.org/program",
+        ],
+        "allowed_domains": ["afajof.org", "afa.org"],
+    },
 }
 
 # Keywords that suggest a link is an agenda/program PDF
@@ -118,29 +124,43 @@ def find_agenda(conf_key: str) -> str | None:
         return None
 
     print(f"\nSearching for {conf_key.upper()} agenda PDF...")
+    conf_cfg = CONFERENCE_SITES[conf_key]
+    site_urls = conf_cfg["urls"]
+    allowed_domains = conf_cfg["allowed_domains"]
     all_candidates = []
+    visited = set()
 
-    for site_url in CONFERENCE_SITES[conf_key]:
+    def _is_allowed(url):
+        return any(d in url for d in allowed_domains)
+
+    for site_url in site_urls:
+        if site_url in visited:
+            continue
+        visited.add(site_url)
         print(f"  Checking {site_url}")
         html = _fetch_page(site_url)
         if not html:
             continue
 
-        candidates = _find_pdf_links(html, site_url)
+        candidates = [c for c in _find_pdf_links(html, site_url) if _is_allowed(c["url"])]
         all_candidates.extend(candidates)
 
-        # Also follow links that look like meeting/program pages
+        # Also follow links that look like meeting/program pages (same domain only)
         soup = BeautifulSoup(html, "html.parser")
         for tag in soup.find_all("a", href=True):
             href = tag["href"]
             text = tag.get_text(strip=True).lower()
+            sub_url = urljoin(site_url, href)
+            if not _is_allowed(sub_url):
+                continue
+            if sub_url in visited:
+                continue
             if any(kw in text or kw in href.lower() for kw in ["program", "agenda", "annual meeting", "meeting"]):
-                sub_url = urljoin(site_url, href)
-                if sub_url != site_url and sub_url not in CONFERENCE_SITES[conf_key]:
-                    sub_html = _fetch_page(sub_url)
-                    if sub_html:
-                        sub_candidates = _find_pdf_links(sub_html, sub_url)
-                        all_candidates.extend(sub_candidates)
+                visited.add(sub_url)
+                sub_html = _fetch_page(sub_url)
+                if sub_html:
+                    sub_candidates = [c for c in _find_pdf_links(sub_html, sub_url) if _is_allowed(c["url"])]
+                    all_candidates.extend(sub_candidates)
 
     # Deduplicate by URL
     seen = set()
