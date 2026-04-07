@@ -23,6 +23,10 @@ Automatically monitor academic journals and conference proceedings for new paper
 | Journal of Accounting and Economics | JAE | top_accounting |
 | Journal of Accounting Research | JAR | top_accounting |
 | Econometrica | ECTA | econ_core |
+| American Economic Review | AER | econ_core |
+| Quarterly Journal of Economics | QJE | econ_core |
+| Journal of Political Economy | JPE | econ_core |
+| Review of Economic Studies | REStud | econ_core |
 | NBER Working Papers | NBER | working_papers |
 
 ### Conferences (most recent year)
@@ -79,7 +83,20 @@ selection:
     - conferences     # WFA, AFA
 ```
 
-Available groups: `top_finance`, `top_om`, `top_is`, `top_marketing`, `top_management`, `top_accounting`, `om_extended`, `econ_core`, `working_papers`, `conferences`
+Available groups:
+
+| group | 包含期刊 |
+|-------|----------|
+| top_finance | JF, JFE, RFS, JFQA |
+| top_om | MNSC, OR, MSOM |
+| top_is | ISR |
+| top_marketing | Marketing Science |
+| top_management | Organization Science |
+| top_accounting | JAE, JAR |
+| om_extended | POM, JOM |
+| econ_core | Econometrica, JPE, REStud *(AER/QJE 无公开 RSS，暂不支持)* |
+| working_papers | NBER |
+| conferences | WFA, AFA |
 
 ## Conference Papers
 

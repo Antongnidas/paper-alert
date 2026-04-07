@@ -139,6 +139,46 @@ sources:
     group: "econ_core"
     tags: ["economics", "theory", "metrics"]
 
+  - name: "American Economic Review"
+    short_name: "AER"
+    type: "rss"
+    enabled: false   # AER does not provide a public RSS feed
+    url: ""
+    parser: "rss"
+    category: "economics"
+    group: "econ_core"
+    tags: ["economics", "theory", "policy"]
+
+  - name: "Quarterly Journal of Economics"
+    short_name: "QJE"
+    type: "rss"
+    enabled: false   # QJE does not provide a public RSS feed
+    url: ""
+    parser: "rss"
+    category: "economics"
+    group: "econ_core"
+    tags: ["economics", "theory", "policy"]
+
+  - name: "Journal of Political Economy"
+    short_name: "JPE"
+    type: "rss"
+    enabled: true
+    url: "https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jpe"
+    parser: "rss"
+    category: "economics"
+    group: "econ_core"
+    tags: ["economics", "theory", "policy"]
+
+  - name: "Review of Economic Studies"
+    short_name: "REStud"
+    type: "rss"
+    enabled: true
+    url: "https://academic.oup.com/rss/site_5508/3369.xml"
+    parser: "rss"
+    category: "economics"
+    group: "econ_core"
+    tags: ["economics", "theory", "metrics"]
+
   - name: "Review of Financial Studies"
     short_name: "RFS"
     type: "rss"
