@@ -138,3 +138,33 @@ sources:
     category: "economics"
     group: "econ_core"
     tags: ["economics", "theory", "metrics"]
+
+  - name: "Review of Financial Studies"
+    short_name: "RFS"
+    type: "rss"
+    enabled: true
+    url: "https://academic.oup.com/rss/site_5504/3365.xml"
+    parser: "rss"
+    category: "finance"
+    group: "top_finance"
+    tags: ["finance", "asset_pricing", "corporate_finance"]
+
+  - name: "Journal of Financial and Quantitative Analysis"
+    short_name: "JFQA"
+    type: "rss"
+    enabled: true
+    url: "https://www.cambridge.org/core/rss/product/id/87B4E1A64E86F7E5EC8E5985E6A7A2A9"
+    parser: "rss"
+    category: "finance"
+    group: "top_finance"
+    tags: ["finance", "asset_pricing", "corporate_finance"]
+
+  - name: "NBER Working Papers"
+    short_name: "NBER"
+    type: "rss"
+    enabled: true
+    url: "https://feeds.nber.org/nber/new"
+    parser: "rss"
+    category: "economics"
+    group: "working_papers"
+    tags: ["economics", "finance_related", "working_paper"]

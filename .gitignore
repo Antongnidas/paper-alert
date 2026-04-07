@@ -1,0 +1,7 @@
+config.yaml
+outputs/
+__pycache__/
+**/__pycache__/
+*.pyc
+.vscode/
+.claude/
