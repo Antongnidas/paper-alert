@@ -1,0 +1,101 @@
+# =========================================================
+# Paper Alert - Example Configuration
+# Copy this file to config.yaml and fill in your settings:
+#   cp config.example.yaml config.yaml
+# =========================================================
+
+# 1. Time window: fetch papers published in the last N days
+lookback_days: 14
+
+# 2. Keyword rules
+keywords:
+  # include: keep papers matching ANY of these keywords
+  include:
+    - healthcare
+    - hospital
+    - medical
+    - insurance
+    - climate
+    - mutual fund
+
+  # exclude: drop papers matching ANY of these keywords
+  exclude:
+    - editorial
+    - announcement
+    - announcements
+    - report
+    - corrigendum
+    - erratum
+
+# 3. Source selection
+selection:
+  # 3.1 By exact journal name (from sources.yaml)
+  source_names: []
+
+  # 3.2 By category
+  # Options: finance, om, accounting, economics, management, marketing, is, innovation
+  categories: []
+
+  # 3.3 By group
+  # Options: top_finance, top_om, top_accounting, top_management, om_extended, econ_core, working_papers
+  groups:
+    - top_finance
+    - top_om
+
+  # 3.4 By tags
+  tags: []
+
+  # 3.5 How to combine multiple criteria: any | all
+  mode: any
+
+# 4. Output settings
+output:
+  save_csv: true
+  save_json: true
+  save_markdown: true
+  output_dir: outputs
+  print_results: true
+
+# 5. Matching settings
+matching:
+  # keyword_scope: title_only | title_and_abstract
+  keyword_scope: title_only
+
+  # keyword_match_type: whole_word (recommended) | substring
+  keyword_match_type: whole_word
+
+  case_sensitive: false
+
+# 6. Deduplication
+dedup:
+  enabled: true
+  priority:
+    - doi
+    - title
+    - link
+
+# 7. Notification settings
+notify:
+  # --- Email (Gmail recommended) ---
+  # Get a Gmail App Password at: https://myaccount.google.com/apppasswords
+  email:
+    enabled: false
+    smtp_host: smtp.gmail.com
+    smtp_port: 465
+    sender: "your@gmail.com"
+    password: "YOUR_GMAIL_APP_PASSWORD"
+    recipients:
+      - "your@gmail.com"
+    # subject: "Paper Alert"
+
+  # --- WeChat push via Server酱 ---
+  # Get your SendKey at: https://sct.ftqq.com/
+  wechat:
+    enabled: false
+    sckey: "YOUR_SERVER_CHAN_SENDKEY"
+
+# 8. Debug settings
+debug:
+  print_source_counts: true
+  print_parse_errors: true
+  max_print_results: 50
