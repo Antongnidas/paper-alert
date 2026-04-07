@@ -162,8 +162,8 @@ sources:
   - name: "WFA 2025"
     short_name: "WFA2025"
     type: "conference"
-    enabled: false
-    url: "https://FILL_IN_WFA2025_AGENDA_PDF_URL"   # paste the agenda PDF URL here
+    enabled: true
+    url: "https://westernfinance.org/wp-content/uploads/2025_links.pdf"
     category: "finance"
     group: "conferences"
     tags: ["finance", "conference", "wfa"]
@@ -174,7 +174,7 @@ sources:
     short_name: "AFA2025"
     type: "conference"
     enabled: false
-    url: "https://FILL_IN_AFA2025_AGENDA_PDF_URL"   # paste the agenda PDF URL here
+    url: ""   # AFA agenda PDF URL — paste manually when available
     category: "finance"
     group: "conferences"
     tags: ["finance", "conference", "afa"]

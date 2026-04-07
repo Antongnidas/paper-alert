@@ -1,8 +1,10 @@
 # Paper Alert
 
-Automatically monitor academic journals for new papers matching your keywords, and receive notifications via email or WeChat.
+Automatically monitor academic journals and conference proceedings for new papers matching your keywords, and receive notifications via email or WeChat.
 
-## Supported Journals
+## Supported Sources
+
+### Journals
 
 | Journal | Short | Group |
 |---------|-------|-------|
@@ -22,6 +24,15 @@ Automatically monitor academic journals for new papers matching your keywords, a
 | Journal of Accounting Research | JAR | top_accounting |
 | Econometrica | ECTA | econ_core |
 | NBER Working Papers | NBER | working_papers |
+
+### Conferences (most recent year)
+
+| Conference | Group |
+|------------|-------|
+| WFA (Western Finance Association) | conferences |
+| AFA (American Finance Association) | conferences |
+
+Conference papers are fetched by downloading and parsing the official agenda PDF. See [Conference Papers](#conference-papers) below.
 
 ## Quickstart
 
@@ -56,19 +67,51 @@ Papers must match **at least one** include keyword and **none** of the exclude k
 lookback_days: 14   # fetch papers from the last 14 days
 ```
 
-### Journal Selection
-Select journals by group, category, name, or tags. Leave all lists empty to fetch from all sources.
+### Source Selection
+Select sources by group, category, name, or tags. Leave all lists empty to fetch from all sources.
 
 ```yaml
 selection:
   groups:
-    - top_finance   # JF, JFE, RFS, JFQA
-    - top_om        # MNSC, OR, MSOM
+    - top_finance     # JF, JFE, RFS, JFQA
+    - top_om          # MNSC, OR, MSOM
+    - working_papers  # NBER
+    - conferences     # WFA, AFA
 ```
 
-Available groups: `top_finance`, `top_om`, `top_is`, `top_marketing`, `top_management`, `top_accounting`, `om_extended`, `econ_core`, `working_papers`
+Available groups: `top_finance`, `top_om`, `top_is`, `top_marketing`, `top_management`, `top_accounting`, `om_extended`, `econ_core`, `working_papers`, `conferences`
 
-### Notifications
+## Conference Papers
+
+Conference papers are fetched from the official agenda PDF (WFA/AFA most recent year).
+
+### Auto-discover agenda URL
+
+```bash
+python main.py --find-agenda wfa
+python main.py --find-agenda afa
+```
+
+The program will scrape the official conference website, find the most recent agenda PDF, and ask if you want to update `sources.yaml` automatically.
+
+> **Note:** WFA agenda is available year-round. AFA agenda PDF may not be publicly hosted — paste the URL manually into `sources.yaml` if auto-discovery fails.
+
+### Enable a conference in sources.yaml
+
+```yaml
+- name: "WFA 2025"
+  type: "conference"
+  enabled: true          # set to true to include
+  url: "https://..."     # filled automatically by --find-agenda, or paste manually
+  download_pdf: false    # set to true to download matched papers as PDFs
+  pdf_output_dir: "outputs/pdfs/WFA2025"
+```
+
+### Download matched papers as PDFs
+
+Set `download_pdf: true` in `sources.yaml` for the conference. Matched papers will be saved to `pdf_output_dir` after each run.
+
+## Notifications
 
 **Email (Gmail):**
 1. Enable 2-Step Verification on your Google account

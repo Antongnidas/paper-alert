@@ -41,6 +41,8 @@ selection:
   groups:
     - top_finance
     - top_om
+    - working_papers  # NBER
+    - conferences     # WFA, AFA
 
   # 3.4 By tags
   tags: []
