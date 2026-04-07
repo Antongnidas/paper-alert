@@ -130,10 +130,12 @@ Set `download_pdf: true` in `sources.yaml` for the conference. Matched papers wi
 
 ## Notifications
 
-**Email (Gmail):**
+### Email (Gmail)
+
 1. Enable 2-Step Verification on your Google account
-2. Generate an App Password at [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+2. Generate an App Password at [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) — use this 16-character password, **not** your login password
 3. Fill in `config.yaml`:
+
 ```yaml
 notify:
   email:
@@ -141,20 +143,45 @@ notify:
     smtp_host: smtp.gmail.com
     smtp_port: 465
     sender: "you@gmail.com"
-    password: "YOUR_APP_PASSWORD"
+    password: "YOUR_16_CHAR_APP_PASSWORD"
     recipients:
-      - "you@gmail.com"
+      - "you@gmail.com"   # can be same as sender, or a different address
 ```
 
-**WeChat (via Server酱):**
-1. Get a free SendKey at [sct.ftqq.com](https://sct.ftqq.com/)
+> **On restricted networks (campus/corporate):** SMTP port 465 is often blocked. This program automatically routes email through your local proxy if one is configured in git:
+> ```bash
+> git config --global http.proxy http://127.0.0.1:YOUR_PORT
+> ```
+> No extra steps needed — it will work as long as your proxy is running.
+
+### WeChat (via Server酱)
+
+1. Get a free SendKey at [sct.ftqq.com](https://sct.ftqq.com/) — scan the QR code with WeChat to register
 2. Fill in `config.yaml`:
+
 ```yaml
 notify:
   wechat:
     enabled: true
     sckey: "YOUR_SENDKEY"
 ```
+
+WeChat push uses HTTPS and works on all network environments without proxy configuration.
+
+## What to change for your own use
+
+Only `config.yaml` needs to be modified. Key settings:
+
+| Setting | What to change |
+|---------|----------------|
+| `keywords.include` | Your research topics (e.g. `fintech`, `supply chain`) |
+| `keywords.exclude` | Terms to filter out (keep defaults or customize) |
+| `lookback_days` | Time window, default 14 days |
+| `selection.groups` | Which journals/conferences to monitor |
+| `notify.email` | Your Gmail + App Password |
+| `notify.wechat` | Your Server酱 SendKey |
+
+Everything else (`sources.yaml`, all code) can be left as-is.
 
 ## Requirements
 
