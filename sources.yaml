@@ -159,12 +159,32 @@ sources:
     group: "top_finance"
     tags: ["finance", "asset_pricing", "corporate_finance"]
 
+  - name: "WFA 2025"
+    short_name: "WFA2025"
+    type: "conference"
+    enabled: false
+    url: "https://FILL_IN_WFA2025_AGENDA_PDF_URL"   # paste the agenda PDF URL here
+    category: "finance"
+    group: "conferences"
+    tags: ["finance", "conference", "wfa"]
+    download_pdf: false
+    pdf_output_dir: "outputs/pdfs/WFA2025"
+
+  - name: "AFA 2025"
+    short_name: "AFA2025"
+    type: "conference"
+    enabled: false
+    url: "https://FILL_IN_AFA2025_AGENDA_PDF_URL"   # paste the agenda PDF URL here
+    category: "finance"
+    group: "conferences"
+    tags: ["finance", "conference", "afa"]
+    download_pdf: false
+    pdf_output_dir: "outputs/pdfs/AFA2025"
+
   - name: "NBER Working Papers"
     short_name: "NBER"
-    type: "rss"
+    type: "nber"
     enabled: true
-    url: "https://feeds.nber.org/nber/new"
-    parser: "rss"
     category: "economics"
     group: "working_papers"
     tags: ["economics", "finance_related", "working_paper"]
