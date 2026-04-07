@@ -7,3 +7,4 @@ pyyaml
 lxml
 tqdm
 pdfplumber
+PySocks
