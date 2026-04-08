@@ -96,6 +96,16 @@ notify:
     enabled: false
     sckey: "YOUR_SERVER_CHAN_SENDKEY"
 
+# 9. Abstract enrichment (CrossRef API)
+# Fetches real abstracts for RSS papers that only have metadata summaries
+enrichment:
+  crossref:
+    enabled: false
+    mailto: "your-email@example.com"   # CrossRef polite pool, faster rate
+    timeout: 10
+    skip_sources:
+      - "NBER Working Papers"          # already has real abstracts
+
 # 8. Debug settings
 debug:
   print_source_counts: true

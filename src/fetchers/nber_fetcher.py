@@ -1,29 +1,15 @@
 import requests
-import subprocess
 from datetime import datetime, timezone
 from typing import List
 from bs4 import BeautifulSoup
 from src.models import Paper
+from src.utils.proxy import get_proxy_dict
 
 NBER_API = (
     "https://www.nber.org/api/v1/working_page_listing"
     "/contentType/working_paper/_/_/search"
     "?page={page}&perPage=50&sortBy=public_date"
 )
-
-
-def _get_proxies():
-    try:
-        result = subprocess.run(
-            ["git", "config", "--get", "http.proxy"],
-            capture_output=True, text=True
-        )
-        proxy_url = result.stdout.strip()
-        if proxy_url:
-            return {"http": proxy_url, "https": proxy_url}
-    except Exception:
-        pass
-    return {}
 
 
 def _strip_html(text: str) -> str:
@@ -43,7 +29,7 @@ def _parse_date(display_date: str) -> datetime:
 
 
 def fetch_nber(source_name: str, category: str, lookback_days: int = 30) -> List[Paper]:
-    proxies = _get_proxies()
+    proxies = get_proxy_dict()
     headers = {"User-Agent": "Mozilla/5.0"}
     papers = []
 

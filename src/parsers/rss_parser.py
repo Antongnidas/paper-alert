@@ -55,17 +55,32 @@ def _parse_date(entry):
 
 
 def _extract_doi(entry):
-    # 优先从 links 里找 doi
+    """Extract DOI from entry links. Checks doi.org URLs and /doi/ paths."""
+    doi_pattern = re.compile(r"10\.\d{4,}/[^\s?#]+")
+
+    # 收集所有候选 URL
+    candidates = []
     if hasattr(entry, "links"):
         for link_obj in entry.links:
             href = getattr(link_obj, "href", "")
-            if "doi.org" in href:
-                return href
-
-    # fallback：从 link 里找
+            if href:
+                candidates.append(href)
     link = getattr(entry, "link", "")
-    if "doi.org" in link:
-        return link
+    if link:
+        candidates.append(link)
+
+    for url in candidates:
+        # 优先匹配 doi.org 链接
+        if "doi.org" in url:
+            match = doi_pattern.search(url)
+            return match.group(0).rstrip(".,;") if match else url
+
+    # fallback：从任意 URL 路径中提取 DOI 模式（如 /doi/10.xxxx/...）
+    for url in candidates:
+        if "/doi/" in url:
+            match = doi_pattern.search(url)
+            if match:
+                return match.group(0).rstrip(".,;")
 
     return None
 

@@ -1,10 +1,10 @@
 import re
 import io
-import subprocess
 import urllib.request
 from datetime import datetime, timezone
 from typing import List
 from src.models import Paper
+from src.utils.proxy import get_proxy_handler
 
 # URL patterns per conference
 CONFERENCE_PATTERNS = {
@@ -13,24 +13,9 @@ CONFERENCE_PATTERNS = {
 }
 
 
-def _get_proxies():
-    try:
-        result = subprocess.run(
-            ["git", "config", "--get", "http.proxy"],
-            capture_output=True, text=True
-        )
-        proxy_url = result.stdout.strip()
-        if proxy_url:
-            return {"http": proxy_url, "https": proxy_url}
-    except Exception:
-        pass
-    return {}
-
-
 def _download_pdf_bytes(url: str) -> bytes:
-    proxies = _get_proxies()
-    if proxies:
-        proxy_handler = urllib.request.ProxyHandler(proxies)
+    proxy_handler = get_proxy_handler()
+    if proxy_handler:
         opener = urllib.request.build_opener(proxy_handler)
     else:
         opener = urllib.request.build_opener()

@@ -1,28 +1,11 @@
 import smtplib
 import socket
 import ssl
-import subprocess
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import List
 from src.models import Paper
-
-
-def _get_proxy():
-    """Read proxy host/port from git config."""
-    try:
-        result = subprocess.run(
-            ["git", "config", "--get", "http.proxy"],
-            capture_output=True, text=True
-        )
-        proxy_url = result.stdout.strip()
-        if not proxy_url:
-            return None, None
-        proxy_url = proxy_url.replace("http://", "").replace("https://", "")
-        host, port = proxy_url.rsplit(":", 1)
-        return host, int(port)
-    except Exception:
-        return None, None
+from src.utils.proxy import get_proxy_host_port
 
 
 def _connect_via_proxy(smtp_host: str, smtp_port: int):
@@ -30,7 +13,7 @@ def _connect_via_proxy(smtp_host: str, smtp_port: int):
     Open a TCP tunnel through an HTTP CONNECT proxy,
     then return an SSL-wrapped socket ready for smtplib.
     """
-    proxy_host, proxy_port = _get_proxy()
+    proxy_host, proxy_port = get_proxy_host_port()
     if not proxy_host:
         return None
 

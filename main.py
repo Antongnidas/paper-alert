@@ -95,14 +95,24 @@ def main():
     lookback_days = config.get("lookback_days", 14)
     include_keywords = config.get("keywords", {}).get("include", [])
     exclude_keywords = config.get("keywords", {}).get("exclude", [])
+    keyword_scope = config.get("matching", {}).get("keyword_scope", "title_only")
 
     # Conference papers have no pub_date — skip date filter for them
     journal_papers = [p for p in all_papers if p.pub_date is not None]
     conf_papers = [p for p in all_papers if p.pub_date is None]
 
     papers_after_date = filter_by_date(journal_papers, lookback_days) + conf_papers
+
+    # --- Enrich abstracts ---
+    enrichment_cfg = config.get("enrichment", {})
+    crossref_cfg = enrichment_cfg.get("crossref", {})
+    if crossref_cfg.get("enabled", False):
+        from src.enrichers.abstract_enricher import enrich_abstracts
+        enrich_abstracts(papers_after_date, enrichment_cfg)
+
     papers_after_keyword = filter_by_keywords(
-        papers_after_date, include_keywords, exclude_keywords
+        papers_after_date, include_keywords, exclude_keywords,
+        keyword_scope=keyword_scope,
     )
     papers_final = deduplicate_papers(papers_after_keyword)
 
